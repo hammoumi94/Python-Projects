@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+
+{%block content %}
+  {% if messages %}
+    {% for message in messages %}
+      <div class="alert alert-warning alert-dismissable" role="alert">
+          <button class="close" data-dismiss="alert">
+            <small><sup>x</sup></sup></small>
+          </button>
+          {{message}}
+      </div>
+      {% endfor %}
+    {% endif %}
+  {% if all_items %}
+  <table class="table table-bordered">
+    {% for things in all_items %}
+      {% if things.completed %}
+            <tr class="table-secondary">
+              <td>{{things.item}}</td>
+              <td><center><a href="{% url "uncross" things.id %}">Uncross</a></center></td>
+              <td><center><a href="{% url "delete" things.id %}">Delete</a></center></td>
+            </tr>
+      {% else %}
+            <tr>
+              <td>{{things.item}}</td>
+              <td><center><a href="{% url "cross_off" things.id %}">Cross Off</a></center></td>
+              <td><center><a href="{% url "delete" things.id %}">Delete</a></center></td>
+            </tr>
+      {% endif %}
+    {% endfor %}
+      </table>
+  {% endif %}
+
+{% endblock %}
